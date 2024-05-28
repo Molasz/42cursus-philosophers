@@ -6,15 +6,15 @@
 #    By: molasz-a <molasz-a@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/27 17:13:53 by molasz-a          #+#    #+#              #
-#    Updated: 2024/05/28 20:06:27 by molasz-a         ###   ########.fr        #
+#    Updated: 2024/05/28 21:45:41 by molasz-a         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS	= philosophers.c
 
-OBJS = $(addprefix obj/, $(SRCS:.c=.o))
+OBJS 	= $(addprefix obj/, $(SRCS:.c=.o))
 
-DEPS = $(addprefix obj/, $(SRCS:.c=.d))
+DEPS	= $(addprefix obj/, $(SRCS:.c=.d))
 
 NAME	= philo
 
@@ -42,5 +42,7 @@ fclean:		clean
 				${RM} ${NAME}
 
 re:			fclean all
+
+-include $(DEPS)
 
 .PHONY:		all clean fclean re
