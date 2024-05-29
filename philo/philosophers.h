@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 20:07:30 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/05/29 11:57:25 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/05/29 12:23:09 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,37 @@
 # define PHILOSOPHERS_H
 
 # include <stdio.h>
+# include <stdlib.h>
 # include <unistd.h>
 # include <pthread.h>
 
-typedef struct s_data
+typedef struct s_args
 {
 	int	philos;
 	int	time_die;
 	int	time_eat;
 	int	time_sleep;
 	int	min_eats;
-}	t_data;
+}	t_args;
 
 typedef struct s_philo
 {
+	pthread_t	thread;
 	int			id;
 	int			eats;
+	int			eating;
+	long		last_eat;
+	t_args		*args;
 }	t_philo;
 
+typedef struct s_data
+{
+	t_args	*args;
+	t_philo	*philos;
+}	t_data;
+
 // Parser
-int		parse(t_data *data, int argc, char **argv);
+int		parse(t_args *args, int argc, char **argv);
 
 // Utils
 void	print(char *str, int fd);
