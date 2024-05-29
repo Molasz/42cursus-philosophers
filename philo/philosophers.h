@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 20:07:30 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/05/29 12:23:09 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/05/30 00:03:10 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ typedef struct s_data
 
 // Parser
 int		parse(t_args *args, int argc, char **argv);
+
+// Routines
+void	*philo_routine(void *philo);
 
 // Utils
 void	print(char *str, int fd);

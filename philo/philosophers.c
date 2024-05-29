@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:50:58 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/05/29 12:28:19 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/05/30 00:02:35 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@ static int	init_philos(t_data *data)
 {
 	int	i;
 
-	data->philos = malloc(sizeof (t_philo) * (data->args->philos + 1));
+	data->philos = malloc(sizeof (t_philo) * data->args->philos);
 	if (!data->philos)
 		return (print("MALLOC error\n", 2), 1);
-	data->philos[data->args->philos].id = -1;
 	i = 0;
 	while (i < data->args->philos)
 	{
@@ -28,6 +27,21 @@ static int	init_philos(t_data *data)
 		data->philos[i].eats = 0;
 		data->philos[i].eating = 0;
 		data->philos[i].last_eat = 0;
+		i++;
+	}
+	return (0);
+}
+
+static int	init_threads(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->args->philos)
+	{
+		if (pthread_create(&data->philos[i].thread, NULL, philo_routine,
+				&data->philos[i]))
+			return (print("PTHREAD CREATE error\n", 2), 1);
 		i++;
 	}
 	return (0);
@@ -43,5 +57,8 @@ int	main(int argc, char **argv)
 	data.args = &args;
 	if (init_philos(&data))
 		return (1);
+	if (init_threads(&data))
+		return (1);
+	usleep(5000);
 	return (0);
 }
