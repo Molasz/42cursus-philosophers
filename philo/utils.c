@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosophers.c                                     :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
+/*   By: molasz-a <molasz-a@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 19:50:58 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/05/29 11:56:42 by molasz-a         ###   ########.fr       */
+/*   Created: 2024/05/29 11:25:40 by molasz-a          #+#    #+#             */
+/*   Updated: 2024/05/29 11:27:31 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int	main(int argc, char **argv)
+static int	ft_strlen(char *str)
 {
-	t_data	data;
+	int	i;
 
-	if (parse(&data, argc, argv))
-		return (1);
-	return (0);
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+void	print(char *str, int fd)
+{
+	write(fd, str, ft_strlen(str));
 }
