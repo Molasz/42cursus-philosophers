@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 12:04:59 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/05/30 18:01:14 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/05/30 23:00:25 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void	print_think(t_philo *philo)
 
 void	print_died(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->mutex->print);
 	print_time_philo(philo->args->start, philo->id);
 	print(" died\n", 1);
-	pthread_mutex_unlock(&philo->mutex->print);
 }

@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:25:40 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/05/30 18:05:40 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/05/31 00:03:44 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,14 @@ void	ft_sleep(int mili)
 	int	start;
 
 	start = get_time();
-	while (get_time() - start <= mili);
+	while (1)
+	{
+		if (get_time() - start >= mili)
+			break ;
+	}
 }
 
-int	get_time()
+int	get_time(void)
 {
 	struct timeval	time;
 

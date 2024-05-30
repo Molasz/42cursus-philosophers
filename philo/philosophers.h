@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 20:07:30 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/05/30 18:29:27 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/05/31 00:02:47 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@
 
 typedef struct s_args
 {
-	int				philos;
-	int				time_die;
-	int				time_eat;
-	int				time_sleep;
-	int				min_eats;
-	int				start;
+	int	philos;
+	int	time_die;
+	int	time_eat;
+	int	time_sleep;
+	int	min_eats;
+	int	start;
 }	t_args;
 
 typedef struct s_mutex
@@ -50,9 +50,9 @@ typedef struct s_philo
 
 typedef struct s_data
 {
-	t_philo			*philos;
-	t_args			*args;
-	t_mutex			*mutex;
+	t_philo	*philos;
+	t_args	*args;
+	t_mutex	*mutex;
 }	t_data;
 
 // Parser
@@ -63,7 +63,7 @@ void	*philo_routine(void *philo);
 
 // Utils
 void	ft_sleep(int mili);
-int		get_time();
+int		get_time(void);
 
 // Print
 void	print(char *str, int fd);
