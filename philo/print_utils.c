@@ -1,36 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   print_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: molasz-a <molasz-a@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/29 11:25:40 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/05/30 18:05:40 by molasz-a         ###   ########.fr       */
+/*   Created: 2024/05/30 12:08:12 by molasz-a          #+#    #+#             */
+/*   Updated: 2024/05/30 12:24:39 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	ft_sleep(int mili)
+static void	putchar_fd(char c, int fd)
 {
-	int	start;
-
-	start = get_time();
-	while (get_time() - start <= mili);
+	write(fd, &c, 1);
 }
 
-int	get_time()
+static int	ft_strlen(char *str)
 {
-	struct timeval	time;
+	int	i;
 
-	gettimeofday(&time, NULL);
-	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
 
-void	print_time_philo(int time, int philo)
+void	print(char *str, int fd)
 {
-	putnbr_fd(get_time() - time, 1);
-	print(" ", 1);
-	putnbr_fd(philo, 1);
+	write(fd, str, ft_strlen(str));
+}
+
+static void	putnbr(int nb, int fd)
+{
+	if (nb <= -10)
+		putnbr(nb / 10, fd);
+	putchar_fd(-(nb % 10) + '0', fd);
+}
+
+void	putnbr_fd(int nb, int fd)
+{
+	if (nb < 0)
+		putchar_fd('-', fd);
+	else
+		nb = -nb;
+	putnbr(nb, fd);
 }
