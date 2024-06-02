@@ -6,13 +6,13 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 23:52:56 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/02 17:43:08 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/02 18:03:58 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static void	take_forks(t_philo *philo, long *time)
+static void	take_forks(t_philo *philo, size_t *time)
 {
 	if (philo->id % 2)
 		pthread_mutex_lock(&philo->l_fork);
@@ -30,7 +30,7 @@ static void	take_forks(t_philo *philo, long *time)
 
 static void	routine_eat(t_philo *philo)
 {
-	long	time;
+	size_t	time;
 
 	take_forks(philo, &time);
 	pthread_mutex_lock(&philo->last_eats_mutex);
@@ -50,7 +50,7 @@ static void	routine_eat(t_philo *philo)
 void	*philo_routine(void *arg)
 {
 	t_philo	*philo;
-	
+
 	philo = arg;
 	pthread_mutex_lock(&philo->mutex->start);
 	pthread_mutex_unlock(&philo->mutex->start);

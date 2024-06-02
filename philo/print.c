@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 12:04:59 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/02 14:29:39 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/02 17:47:42 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_fork(t_philo *philo)
 {
-	long	time;
+	size_t	time;
 
 	time = get_time() - philo->args->start;
 	pthread_mutex_lock(&philo->mutex->print);
@@ -25,7 +25,7 @@ void	print_fork(t_philo *philo)
 
 void	print_eat(t_philo *philo)
 {
-	long	time;
+	size_t	time;
 
 	time = get_time() - philo->args->start;
 	pthread_mutex_lock(&philo->mutex->print);
@@ -36,7 +36,7 @@ void	print_eat(t_philo *philo)
 
 void	print_sleep(t_philo *philo)
 {
-	long	time;
+	size_t	time;
 
 	time = get_time() - philo->args->start;
 	pthread_mutex_lock(&philo->mutex->print);
@@ -47,7 +47,7 @@ void	print_sleep(t_philo *philo)
 
 void	print_think(t_philo *philo)
 {
-	long	time;
+	size_t	time;
 
 	time = get_time() - philo->args->start;
 	pthread_mutex_lock(&philo->mutex->print);
@@ -58,7 +58,7 @@ void	print_think(t_philo *philo)
 
 void	print_died(t_philo *philo)
 {
-	long	time;
+	size_t	time;
 
 	time = get_time() - philo->args->start;
 	print_time_philo(time, philo->id);

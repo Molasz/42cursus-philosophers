@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:21:07 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/02 14:33:14 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/02 17:52:43 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,13 @@ static int	check_chars(char **argv)
 	return (0);
 }
 
-static int	ft_atoi(char *str)
+static size_t	ft_atoi(char *str)
 {
 	size_t	i;
-	int		count;
-	int		sign;
+	size_t	count;
 
 	i = 0;
-	sign = 1;
 	count = 0;
-	while (str[i] && (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13)))
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i++] == '-')
-			sign = -1;
-	}
 	while (str[i] == '0')
 		i++;
 	while (str[i] && str[i] >= '0' && str[i] <= '9')
@@ -56,7 +47,7 @@ static int	ft_atoi(char *str)
 		count += str[i] - '0';
 		i++;
 	}
-	return (count * sign);
+	return (count);
 }
 
 static int	read_args(t_args *args, char **argv)
