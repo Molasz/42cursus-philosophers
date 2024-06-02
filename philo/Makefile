@@ -6,13 +6,14 @@
 #    By: molasz-a <molasz-a@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/27 17:13:53 by molasz-a          #+#    #+#              #
-#    Updated: 2024/05/30 12:17:55 by molasz-a         ###   ########.fr        #
+#    Updated: 2024/06/02 14:50:54 by molasz-a         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS	= philosophers.c \
 			parse.c \
 			routine.c \
+			monitoring.c \
 			print.c \
 			print_utils.c \
 			utils.c
