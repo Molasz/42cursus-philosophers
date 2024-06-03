@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:50:58 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/02 17:41:17 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/03 12:52:28 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,5 @@ int	main(int argc, char **argv)
 		return (1);
 	args.start = get_time();
 	pthread_mutex_unlock(&mutex.start);
-	monitoring(&data);
-	return (0);
+	return (monitoring(&data));
 }
