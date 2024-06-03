@@ -6,13 +6,13 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 14:34:06 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/03 12:58:32 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:46:25 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-static void	read_philo(t_data *data, int i, size_t *last_eat, size_t *eats)
+static void	read_philo(t_data *data, int i, size_t *last_eat, int *eats)
 {
 	pthread_mutex_lock(&data->philos[i].last_eats_mutex);
 	*last_eat = data->philos[i].last_eat;
@@ -29,9 +29,7 @@ static void	destroy_mutex(t_data *data)
 {
 	int	i;
 
-	pthread_mutex_destroy(&data->mutex->start);
-	pthread_mutex_destroy(&data->mutex->print);
-	pthread_mutex_destroy(&data->mutex->death);
+	pthread_mutex_destroy(&data->args->print);
 	i = 0;
 	while (i < data->args->philos)
 	{
@@ -41,15 +39,17 @@ static void	destroy_mutex(t_data *data)
 	}
 }
 
-static void	thread_exit(t_data *data, int i)
+static void	stop_threads(t_data *data, int i)
 {
 	int	j;
 
-	pthread_mutex_lock(&data->mutex->print);
+	pthread_mutex_lock(&data->args->print);
 	if (i >= 0)
 		print_died(&data->philos[i]);
 	else
-		printf("All philos eat at least %ld times\n", data->args->min_eats);
+	{
+
+	}
 	j = -1;
 	while (++j < data->args->philos)
 		pthread_detach(data->philos[j].thread);
@@ -60,7 +60,7 @@ int	monitoring(t_data *data)
 {
 	size_t	last_eat;
 	size_t	time;
-	size_t	eats;
+	int		eats;
 	int		all_eats;
 	int		i;
 
@@ -74,11 +74,11 @@ int	monitoring(t_data *data)
 			read_philo(data, i, &last_eat, &eats);
 			time = get_time();
 			if (last_eat && time - last_eat > data->args->time_die)
-				return (thread_exit(data, i), 0);
+				return (stop_threads(data, i), 0);
 			if (data->args->min_eats > 0 && eats >= data->args->min_eats)
 				all_eats++;
 		}
 		if (all_eats == data->args->philos)
-			return (thread_exit(data, -1), 1);
+			return (stop_threads(data, -1), 1);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 23:52:56 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/03 12:40:25 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:32:49 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	*philo_routine(void *arg)
 	t_philo	*philo;
 
 	philo = arg;
-	pthread_mutex_lock(&philo->mutex->start);
-	pthread_mutex_unlock(&philo->mutex->start);
+	pthread_mutex_lock(&philo->args->print);
+	pthread_mutex_unlock(&philo->args->print);
 	pthread_mutex_lock(&philo->last_eats_mutex);
 	philo->last_eat = philo->args->start;
 	pthread_mutex_unlock(&philo->last_eats_mutex);

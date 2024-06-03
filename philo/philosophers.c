@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:50:58 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/03 12:52:28 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:48:26 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static int	init_philos(t_data *data)
 	{
 		data->philos[i].id = i + 1;
 		data->philos[i].args = data->args;
-		data->philos[i].mutex = data->mutex;
 		data->philos[i].eats = 0;
 		data->philos[i].last_eat = 0;
 		pthread_mutex_init(&data->philos[i].eats_mutex, NULL);
@@ -35,15 +34,6 @@ static int	init_philos(t_data *data)
 		i++;
 	}
 	data->philos[0].r_fork = &data->philos[i - 1].l_fork;
-	return (0);
-}
-
-static int	init_mutex(t_data *data)
-{
-	pthread_mutex_init(&data->mutex->start, NULL);
-	pthread_mutex_init(&data->mutex->print, NULL);
-	pthread_mutex_init(&data->mutex->death, NULL);
-	pthread_mutex_lock(&data->mutex->start);
 	return (0);
 }
 
@@ -66,19 +56,17 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 	t_args	args;
-	t_mutex	mutex;
 
 	data.args = &args;
-	data.mutex = &mutex;
 	if (parse(&args, argc, argv))
 		return (1);
 	if (init_philos(&data))
 		return (1);
-	if (init_mutex(&data))
-		return (1);
+	pthread_mutex_init(&args.print, NULL);
+	pthread_mutex_lock(&args.print);
 	if (init_threads(&data))
 		return (1);
 	args.start = get_time();
-	pthread_mutex_unlock(&mutex.start);
+	pthread_mutex_unlock(&args.print);
 	return (monitoring(&data));
 }

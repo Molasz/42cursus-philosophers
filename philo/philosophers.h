@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 20:07:30 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/02 17:58:09 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:48:30 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,14 @@
 
 typedef struct s_args
 {
-	int		philos;
-	size_t	time_die;
-	size_t	time_eat;
-	size_t	time_sleep;
-	size_t	min_eats;
-	size_t	start;
-}	t_args;
-
-typedef struct s_mutex
-{
-	pthread_mutex_t	start;
+	int				philos;
+	size_t			time_die;
+	size_t			time_eat;
+	size_t			time_sleep;
+	int				min_eats;
+	size_t			start;
 	pthread_mutex_t	print;
-	pthread_mutex_t	death;
-}	t_mutex;
+}	t_args;
 
 typedef struct s_philo
 {
@@ -43,7 +37,6 @@ typedef struct s_philo
 	int				eats;
 	size_t			last_eat;
 	t_args			*args;
-	t_mutex			*mutex;
 	pthread_mutex_t	eats_mutex;
 	pthread_mutex_t	last_eats_mutex;
 	pthread_mutex_t	l_fork;
@@ -54,7 +47,6 @@ typedef struct s_data
 {
 	t_philo	*philos;
 	t_args	*args;
-	t_mutex	*mutex;
 }	t_data;
 
 int		parse(t_args *args, int argc, char **argv);
