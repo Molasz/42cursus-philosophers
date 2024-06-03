@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 20:07:30 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/03 14:48:30 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:50:25 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ typedef struct s_args
 
 typedef struct s_philo
 {
-	pthread_t		thread;
+	t_args			*args;
 	int				id;
 	int				eats;
 	size_t			last_eat;
-	t_args			*args;
+	pthread_t		thread;
 	pthread_mutex_t	eats_mutex;
 	pthread_mutex_t	last_eats_mutex;
 	pthread_mutex_t	l_fork;
@@ -45,27 +45,30 @@ typedef struct s_philo
 
 typedef struct s_data
 {
-	t_philo	*philos;
 	t_args	*args;
+	t_philo	*philos;
 }	t_data;
 
+// Philo
 int		parse(t_args *args, int argc, char **argv);
 void	*philo_routine(void *philo);
 int		monitoring(t_data *data);
 
-// Utils
-void	ft_sleep(size_t mili);
-size_t	get_time(void);
-
 // Print
-void	putchar_fd(char c, int fd);
-void	print(char *str, int fd);
-void	putnbr_fd(size_t nb, int fd);
-void	print_time_philo(size_t time, int philo);
 void	print_fork(t_philo *philo);
 void	print_eat(t_philo *philo);
 void	print_sleep(t_philo *philo);
 void	print_think(t_philo *philo);
 void	print_died(t_philo *philo);
+
+// Print utils
+void	putchar_fd(char c, int fd);
+void	print(char *str, int fd);
+void	putnbr_fd(size_t nb, int fd);
+void	print_time_philo(size_t time, int philo);
+
+// Utils
+void	ft_sleep(size_t mili);
+size_t	get_time(void);
 
 #endif
