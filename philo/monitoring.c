@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 14:34:06 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/03 14:46:25 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/04 22:32:26 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static void	stop_threads(t_data *data, int i)
 	while (++j < data->args->philos)
 		pthread_detach(data->philos[j].thread);
 	destroy_mutex(data);
+	free(data->philos);
 }
 
 int	monitoring(t_data *data)
