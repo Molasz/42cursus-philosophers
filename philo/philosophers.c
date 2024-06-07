@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:50:58 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/06 13:41:58 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:20:19 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ static int	init_philos(t_data *data)
 		i++;
 	}
 	data->philos[0].r_fork = &data->philos[i - 1].l_fork;
+	pthread_mutex_init(&data->args->print, NULL);
+	pthread_mutex_init(&data->args->death_mutex, NULL);
+	pthread_mutex_lock(&data->args->print);
 	return (0);
 }
 
@@ -62,8 +65,6 @@ int	main(int argc, char **argv)
 		return (1);
 	if (init_philos(&data))
 		return (1);
-	pthread_mutex_init(&args.print, NULL);
-	pthread_mutex_lock(&args.print);
 	if (init_threads(&data))
 		return (1);
 	args.start = get_time();

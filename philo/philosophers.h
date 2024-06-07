@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 20:07:30 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/03 14:50:25 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/07 17:21:00 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ typedef struct s_args
 	size_t			time_sleep;
 	int				min_eats;
 	size_t			start;
+	int				death;
 	pthread_mutex_t	print;
+	pthread_mutex_t	death_mutex;
 }	t_args;
 
 typedef struct s_philo
@@ -55,10 +57,10 @@ void	*philo_routine(void *philo);
 int		monitoring(t_data *data);
 
 // Print
-void	print_fork(t_philo *philo);
-void	print_eat(t_philo *philo);
-void	print_sleep(t_philo *philo);
-void	print_think(t_philo *philo);
+int		print_fork(t_philo *philo);
+int		print_eat(t_philo *philo);
+int		print_sleep(t_philo *philo);
+int		print_think(t_philo *philo);
 void	print_died(t_philo *philo);
 
 // Print utils

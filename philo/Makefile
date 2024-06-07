@@ -6,7 +6,7 @@
 #    By: molasz-a <molasz-a@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/27 17:13:53 by molasz-a          #+#    #+#              #
-#    Updated: 2024/06/06 13:43:20 by molasz-a         ###   ########.fr        #
+#    Updated: 2024/06/07 17:06:19 by molasz-a         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ RM		= rm -rf
 
 CC		= cc
 
-CFLAGS	= -Wall -Wextra -Werror #-fsanitize=thread
+CFLAGS	= -Wall -Wextra -Werror -g -fsanitize=thread
 
 all:		dir ${NAME}
 
