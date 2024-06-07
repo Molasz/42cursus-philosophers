@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 12:04:59 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/07 17:25:52 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/07 18:31:34 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	print_fork(t_philo *philo)
 	time = get_time() - philo->args->start;
 	pthread_mutex_lock(&philo->args->death_mutex);
 	if (philo->args->death)
-		return (1);
+		return (pthread_mutex_unlock(&philo->args->death_mutex), 1);
 	pthread_mutex_unlock(&philo->args->death_mutex);
 	pthread_mutex_lock(&philo->args->print);
 	print_time_philo(time, philo->id);
@@ -35,7 +35,7 @@ int	print_eat(t_philo *philo)
 	time = get_time() - philo->args->start;
 	pthread_mutex_lock(&philo->args->death_mutex);
 	if (philo->args->death)
-		return (1);
+		return (pthread_mutex_unlock(&philo->args->death_mutex), 1);
 	pthread_mutex_unlock(&philo->args->death_mutex);
 	pthread_mutex_lock(&philo->args->print);
 	print_time_philo(time, philo->id);
@@ -51,7 +51,7 @@ int	print_sleep(t_philo *philo)
 	time = get_time() - philo->args->start;
 	pthread_mutex_lock(&philo->args->death_mutex);
 	if (philo->args->death)
-		return (1);
+		return (pthread_mutex_unlock(&philo->args->death_mutex), 1);
 	pthread_mutex_unlock(&philo->args->death_mutex);
 	pthread_mutex_lock(&philo->args->print);
 	print_time_philo(time, philo->id);
@@ -67,7 +67,7 @@ int	print_think(t_philo *philo)
 	time = get_time() - philo->args->start;
 	pthread_mutex_lock(&philo->args->death_mutex);
 	if (philo->args->death)
-		return (1);
+		return (pthread_mutex_unlock(&philo->args->death_mutex), 1);
 	pthread_mutex_unlock(&philo->args->death_mutex);
 	pthread_mutex_lock(&philo->args->print);
 	print_time_philo(time, philo->id);

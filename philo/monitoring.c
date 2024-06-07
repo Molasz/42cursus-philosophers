@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 14:34:06 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/07 17:26:15 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/07 18:35:03 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,16 @@ static void	stop_threads(t_data *data, int i)
 
 	pthread_mutex_lock(&data->args->print);
 	pthread_mutex_lock(&data->args->death_mutex);
+	data->args->death = 1;
 	pthread_mutex_unlock(&data->args->death_mutex);
-	if (i >= 0)
-		print_died(&data->philos[i]);
-	else
-		print("All philosophers eat at least min meals\n", 1);
 	j = -1;
 	while (++j < data->args->philos)
 		pthread_detach(data->philos[j].thread);
 	destroy_mutex(data);
+	if (i >= 0)
+		print_died(&data->philos[i]);
+	else
+		print("All philosophers eat at least min meals\n", 1);
 	free(data->philos);
 }
 
