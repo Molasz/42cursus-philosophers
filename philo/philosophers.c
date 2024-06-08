@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:50:58 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/07 17:20:19 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/08 19:15:37 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ int	main(int argc, char **argv)
 	args.start = get_time();
 	pthread_mutex_unlock(&args.print);
 	ft_sleep(args.time_die);
-	return (monitoring(&data));
+	monitoring(&data);
+	return (0);
 }

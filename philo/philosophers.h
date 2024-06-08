@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 20:07:30 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/07 17:21:00 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/08 18:42:30 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,6 @@ void	print_time_philo(size_t time, int philo);
 // Utils
 void	ft_sleep(size_t mili);
 size_t	get_time(void);
+int		lock_mutex(pthread_mutex_t *mutex, t_args *args);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 14:34:06 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/08 18:32:41 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/08 19:05:21 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	destroy_mutex(t_data *data)
 {
 	int	i;
 
+	pthread_mutex_lock(&data->args->print);
 	pthread_mutex_unlock(&data->args->print);
 	pthread_mutex_destroy(&data->args->print);
 	pthread_mutex_lock(&data->args->death_mutex);
@@ -54,7 +55,6 @@ static void	stop_threads(t_data *data, int i)
 {
 	int	j;
 
-	pthread_mutex_lock(&data->args->print);
 	pthread_mutex_lock(&data->args->death_mutex);
 	data->args->death = 1;
 	pthread_mutex_unlock(&data->args->death_mutex);
