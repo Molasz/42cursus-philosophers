@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 23:52:56 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/07 17:20:04 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/08 18:23:05 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ static int	take_forks(t_philo *philo)
 	if (print_fork(philo))
 	{
 		if (philo->id % 2 == 0)
-			pthread_mutex_unlock(&philo->l_fork);
+			return (pthread_mutex_unlock(&philo->l_fork), 1);
 		else
-			pthread_mutex_unlock(philo->r_fork);
+			return (pthread_mutex_unlock(philo->r_fork), 1);
 	}
 	if (philo->id % 2 == 0)
 		pthread_mutex_lock(philo->r_fork);
 	else
 		pthread_mutex_lock(&philo->l_fork);
 	if (print_fork(philo) || print_eat(philo))
-		return (pthread_mutex_unlock(&philo->l_fork), 
+		return (pthread_mutex_unlock(&philo->l_fork),
 			pthread_mutex_unlock(philo->r_fork), 1);
 	return (0);
 }

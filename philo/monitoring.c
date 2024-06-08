@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 14:34:06 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/07 18:35:03 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/08 18:32:41 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,23 @@ static void	destroy_mutex(t_data *data)
 {
 	int	i;
 
+	pthread_mutex_unlock(&data->args->print);
 	pthread_mutex_destroy(&data->args->print);
+	pthread_mutex_lock(&data->args->death_mutex);
+	pthread_mutex_unlock(&data->args->death_mutex);
 	pthread_mutex_destroy(&data->args->death_mutex);
 	i = 0;
 	while (i < data->args->philos)
 	{
+		pthread_mutex_lock(&data->philos[i].eats_mutex);
+		pthread_mutex_unlock(&data->philos[i].eats_mutex);
 		pthread_mutex_destroy(&data->philos[i].eats_mutex);
+		pthread_mutex_lock(&data->philos[i].last_eats_mutex);
+		pthread_mutex_unlock(&data->philos[i].last_eats_mutex);
 		pthread_mutex_destroy(&data->philos[i].last_eats_mutex);
+		pthread_mutex_lock(&data->philos[i].l_fork);
+		pthread_mutex_unlock(&data->philos[i].l_fork);
+		pthread_mutex_destroy(&data->philos[i].l_fork);
 		i++;
 	}
 }
@@ -51,11 +61,14 @@ static void	stop_threads(t_data *data, int i)
 	j = -1;
 	while (++j < data->args->philos)
 		pthread_detach(data->philos[j].thread);
-	destroy_mutex(data);
 	if (i >= 0)
 		print_died(&data->philos[i]);
 	else
 		print("All philosophers eat at least min meals\n", 1);
+	printf("\n\n SLEEP \n\n");
+	ft_sleep(5000);
+	printf("\n\n END \n\n");
+	destroy_mutex(data);
 	free(data->philos);
 }
 
