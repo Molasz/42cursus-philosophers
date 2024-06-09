@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 20:07:30 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/08 18:42:30 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/09 18:13:28 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ typedef struct s_philo
 {
 	t_args			*args;
 	int				id;
+	int				stopped;
 	int				eats;
 	size_t			last_eat;
 	pthread_t		thread;
-	pthread_mutex_t	eats_mutex;
-	pthread_mutex_t	last_eats_mutex;
+	pthread_mutex_t	mutex;
 	pthread_mutex_t	l_fork;
 	pthread_mutex_t	*r_fork;
 }	t_philo;
