@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 20:07:30 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/09 18:13:28 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/10 20:20:22 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,12 @@ void	print_died(t_philo *philo);
 // Print utils
 void	putchar_fd(char c, int fd);
 void	print(char *str, int fd);
-void	putnbr_fd(size_t nb, int fd);
-void	print_time_philo(size_t time, int philo);
+int		print_action(t_philo *philo, char *str);
 
 // Utils
 void	ft_sleep(size_t mili);
 size_t	get_time(void);
 int		lock_mutex(pthread_mutex_t *mutex, t_args *args);
+size_t	ft_strlen(char *str);
 
 #endif

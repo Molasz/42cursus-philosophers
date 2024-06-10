@@ -6,7 +6,7 @@
 #    By: molasz-a <molasz-a@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/27 17:13:53 by molasz-a          #+#    #+#              #
-#    Updated: 2024/06/10 12:44:34 by molasz-a         ###   ########.fr        #
+#    Updated: 2024/06/10 21:01:56 by molasz-a         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,6 @@ SRCS	= philosophers.c \
 			parse.c \
 			routine.c \
 			monitoring.c \
-			print.c \
 			print_utils.c \
 			utils.c
 
@@ -28,7 +27,7 @@ RM		= rm -rf
 
 CC		= cc
 
-CFLAGS	= -Wall -Wextra -Werror -g #-fsanitize=thread
+CFLAGS	= -Wall -Wextra -Werror #-g -fsanitize=thread
 
 all:		dir ${NAME}
 

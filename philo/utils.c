@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:25:40 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/10 10:14:39 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/10 20:13:04 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,6 @@ size_t	get_time(void)
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
-void	print_time_philo(size_t time, int philo)
-{
-	putnbr_fd(time, 1);
-	putchar_fd(' ', 1);
-	putnbr_fd(philo, 1);
-}
-
 int	lock_mutex(pthread_mutex_t *mutex, t_args *args)
 {
 	pthread_mutex_lock(mutex);
@@ -52,4 +45,14 @@ int	lock_mutex(pthread_mutex_t *mutex, t_args *args)
 	}
 	pthread_mutex_unlock(&args->death_mutex);
 	return (0);
+}
+
+size_t	ft_strlen(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }

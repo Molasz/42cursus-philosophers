@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 14:34:06 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/10 12:36:56 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/10 21:04:09 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,12 @@ int	monitoring(t_data *data)
 			time = get_time();
 			if (last_eat && time - last_eat > data->args->time_die)
 				return (stop_threads(data, i), 0);
+			else if (!last_eat && time - data->args->start > data->args->time_die)
+				return (stop_threads(data, i), 0);
 			if (data->args->min_eats > 0 && eats >= data->args->min_eats)
 				all_eats++;
 		}
 		if (all_eats == data->args->philos)
-			return (stop_threads(data, -1), 1);
-		ft_sleep(10);
+			return (stop_threads(data, -1), 0);
 	}
 }

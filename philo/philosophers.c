@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:50:58 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/10 12:21:15 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/10 20:52:10 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ static int	init_threads(t_data *data)
 			return (print("PTHREAD CREATE error\n", 2), 1);
 		i++;
 	}
-	ft_sleep(500);
 	return (0);
 }
 
@@ -72,7 +71,7 @@ int	main(int argc, char **argv)
 		return (1);
 	args.start = get_time();
 	pthread_mutex_unlock(&args.print);
-	ft_sleep(args.time_die);
+	ft_sleep(50);
 	monitoring(&data);
 	return (0);
 }
