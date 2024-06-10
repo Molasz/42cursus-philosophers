@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 14:34:06 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/09 20:20:08 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/10 12:36:56 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,7 @@ static void	destroy_mutex(t_data *data)
 {
 	int	i;
 
-	pthread_mutex_lock(&data->args->print);
-	pthread_mutex_unlock(&data->args->print);
 	pthread_mutex_destroy(&data->args->print);
-	pthread_mutex_lock(&data->args->death_mutex);
-	pthread_mutex_unlock(&data->args->death_mutex);
 	pthread_mutex_destroy(&data->args->death_mutex);
 	i = 0;
 	while (i < data->args->philos)
@@ -54,6 +50,7 @@ static void	wait_threads(t_data *data)
 			if (data->philos[i].stopped)
 				break ;
 			pthread_mutex_unlock(&data->philos[i].mutex);
+			ft_sleep(10);
 		}
 		pthread_mutex_unlock(&data->philos[i].mutex);
 		pthread_mutex_destroy(&data->philos[i].mutex);
@@ -63,19 +60,21 @@ static void	wait_threads(t_data *data)
 
 static void	stop_threads(t_data *data, int i)
 {
-	int	j;
+	size_t	time;
+	int		j;
 
+	time = get_time() - data->args->start;
 	pthread_mutex_lock(&data->args->death_mutex);
 	data->args->death = 1;
 	pthread_mutex_unlock(&data->args->death_mutex);
 	j = -1;
 	while (++j < data->args->philos)
 		pthread_detach(data->philos[j].thread);
-	if (i >= 0)
-		print_died(&data->philos[i]);
-	else
-		print("All philosophers eat at least min meals\n", 1);
 	wait_threads(data);
+	if (i >= 0)
+		printf("%ld %d died\n", time, data->philos[i].id);
+	else
+		printf("%ld All philosophers eat at least min meals\n", time);
 	destroy_mutex(data);
 	free(data->philos);
 }
@@ -104,5 +103,6 @@ int	monitoring(t_data *data)
 		}
 		if (all_eats == data->args->philos)
 			return (stop_threads(data, -1), 1);
+		ft_sleep(10);
 	}
 }

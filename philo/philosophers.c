@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:50:58 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/09 20:12:01 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/10 12:21:15 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static int	init_threads(t_data *data)
 			return (print("PTHREAD CREATE error\n", 2), 1);
 		i++;
 	}
+	ft_sleep(500);
 	return (0);
 }
 
@@ -62,6 +63,7 @@ int	main(int argc, char **argv)
 	t_args	args;
 
 	data.args = &args;
+	args.death = 0;
 	if (parse(&args, argc, argv))
 		return (1);
 	if (init_philos(&data))
