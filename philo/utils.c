@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:25:40 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/09 13:24:26 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/10 10:14:39 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,13 @@ void	print_time_philo(size_t time, int philo)
 
 int	lock_mutex(pthread_mutex_t *mutex, t_args *args)
 {
+	pthread_mutex_lock(mutex);
 	pthread_mutex_lock(&args->death_mutex);
 	if (args->death)
-		return (pthread_mutex_unlock(&args->death_mutex), 1);
+	{
+		pthread_mutex_unlock(&args->death_mutex);
+		return (pthread_mutex_unlock(mutex), 1);
+	}
 	pthread_mutex_unlock(&args->death_mutex);
-	pthread_mutex_lock(mutex);
 	return (0);
 }
