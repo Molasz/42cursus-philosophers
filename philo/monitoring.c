@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 14:34:06 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/10 21:04:09 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:33:41 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	wait_threads(t_data *data)
 			if (data->philos[i].stopped)
 				break ;
 			pthread_mutex_unlock(&data->philos[i].mutex);
-			ft_sleep(10);
+			ft_sleep(1);
 		}
 		pthread_mutex_unlock(&data->philos[i].mutex);
 		pthread_mutex_destroy(&data->philos[i].mutex);
@@ -105,5 +105,6 @@ int	monitoring(t_data *data)
 		}
 		if (all_eats == data->args->philos)
 			return (stop_threads(data, -1), 0);
+		ft_sleep(3);
 	}
 }
