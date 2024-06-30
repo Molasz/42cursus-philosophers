@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:21:07 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/02 17:52:43 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/29 20:37:19 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,31 +50,31 @@ static size_t	ft_atoi(char *str)
 	return (count);
 }
 
-static int	read_args(t_args *args, char **argv)
+static int	read_args(t_data *data, char **argv)
 {
-	args->philos = ft_atoi(argv[0]);
-	args->time_die = ft_atoi(argv[1]);
-	args->time_eat = ft_atoi(argv[2]);
-	args->time_sleep = ft_atoi(argv[3]);
+	data->philos_num = ft_atoi(argv[0]);
+	data->time_die = ft_atoi(argv[1]);
+	data->time_eat = ft_atoi(argv[2]);
+	data->time_sleep = ft_atoi(argv[3]);
 	if (argv[4])
-		args->min_eats = ft_atoi(argv[4]);
+		data->min_eats = ft_atoi(argv[4]);
 	else
-		args->min_eats = -1;
+		data->min_eats = -1;
 	return (0);
 }
 
-static int	check_args(t_args *args)
+static int	check_args(t_data *data)
 {
-	if (!args->philos)
+	if (!data->philos_num)
 		return (print("Minimum 1 philosopher required\n", 2), 1);
-	if (!args->time_die || !args->time_eat || !args->time_sleep)
+	if (!data->time_die || !data->time_eat || !data->time_sleep)
 		return (print("Can't run the program with time of 0ms\n", 2), 1);
-	if (!args->min_eats)
+	if (!data->min_eats)
 		return (print("Can't run the program with min eats at 0\n", 2), 1);
 	return (0);
 }
 
-int	parse(t_args *args, int argc, char **argv)
+int	parse(t_data *data, int argc, char **argv)
 {
 	if (argc < 5)
 		return (print("Too few arguments\n", 2), 1);
@@ -82,9 +82,9 @@ int	parse(t_args *args, int argc, char **argv)
 		return (print("Too many arguments\n", 2), 1);
 	if (check_chars(argv + 1))
 		return (print("Only digit characters permitted\n", 2), 1);
-	if (read_args(args, argv + 1))
+	if (read_args(data, argv + 1))
 		return (1);
-	if (check_args(args))
+	if (check_args(data))
 		return (1);
 	return (0);
 }

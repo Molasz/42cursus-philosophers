@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 12:08:12 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/11 19:27:48 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/30 19:02:12 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,15 @@ void	putnbr_fd(size_t nb, int fd)
 
 int	print_action(t_philo *philo, char *str)
 {
-	pthread_mutex_lock(&philo->args->print);
-	putnbr_fd(get_time() - philo->args->start, 1);
+	pthread_mutex_lock(&philo->mutex);
+	if (philo->stop)
+		return (pthread_mutex_unlock(&philo->mutex), 1);
+	pthread_mutex_unlock(&philo->mutex);
+	pthread_mutex_lock(philo->print);
+	putnbr_fd(get_time() - *philo->start, 1);
 	write(1, " ", 1);
 	putnbr_fd(philo->id, 1);
 	write(1, str, ft_strlen(str));
-	pthread_mutex_unlock(&philo->args->print);
+	pthread_mutex_unlock(philo->print);
 	return (0);
 }

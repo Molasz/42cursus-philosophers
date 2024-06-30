@@ -6,7 +6,7 @@
 #    By: molasz-a <molasz-a@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/27 17:13:53 by molasz-a          #+#    #+#              #
-#    Updated: 2024/06/11 19:02:48 by molasz-a         ###   ########.fr        #
+#    Updated: 2024/06/29 22:20:09 by molasz-a         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,4 +50,4 @@ re:			fclean all
 
 -include $(DEPS)
 
-.PHONY:		all clean fclean re
+.PHONY:		all clean fclean re dir

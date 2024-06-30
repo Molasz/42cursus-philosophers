@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 14:34:06 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/11 19:33:41 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/30 19:02:54 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ static void	read_philo(t_data *data, int i, size_t *last_eat, int *eats)
 {
 	pthread_mutex_lock(&data->philos[i].mutex);
 	*last_eat = data->philos[i].last_eat;
-	if (data->args->min_eats > 0)
-		*eats = data->philos[i].eats;
+	*eats = data->philos[i].eats;
 	pthread_mutex_unlock(&data->philos[i].mutex);
 }
 
@@ -25,36 +24,35 @@ static void	destroy_mutex(t_data *data)
 {
 	int	i;
 
-	pthread_mutex_destroy(&data->args->print);
-	pthread_mutex_destroy(&data->args->death_mutex);
 	i = 0;
-	while (i < data->args->philos)
+	while (++i < data->philos_num)
 	{
-		pthread_mutex_lock(&data->philos[i].l_fork);
-		pthread_mutex_unlock(&data->philos[i].l_fork);
 		pthread_mutex_destroy(&data->philos[i].l_fork);
+		pthread_mutex_destroy(&data->philos[i].mutex);
 		i++;
 	}
+	pthread_mutex_destroy(&data->print);
 }
 
 static void	wait_threads(t_data *data)
 {
 	int	i;
 
-	i = 0;
-	while (i < data->args->philos)
+	i = -1;
+	while (++i < data->philos_num)
 	{
+		pthread_join(data->philos[i].thread, NULL);
+		pthread_detach(data->philos[i].thread);
+		/*
 		while (1)
 		{
 			pthread_mutex_lock(&data->philos[i].mutex);
-			if (data->philos[i].stopped)
+			if (data->philos[i].stoped == 1)
 				break ;
 			pthread_mutex_unlock(&data->philos[i].mutex);
-			ft_sleep(1);
 		}
 		pthread_mutex_unlock(&data->philos[i].mutex);
-		pthread_mutex_destroy(&data->philos[i].mutex);
-		i++;
+		*/
 	}
 }
 
@@ -63,13 +61,14 @@ static void	stop_threads(t_data *data, int i)
 	size_t	time;
 	int		j;
 
-	time = get_time() - data->args->start;
-	pthread_mutex_lock(&data->args->death_mutex);
-	data->args->death = 1;
-	pthread_mutex_unlock(&data->args->death_mutex);
 	j = -1;
-	while (++j < data->args->philos)
-		pthread_detach(data->philos[j].thread);
+	while (++j < data->philos_num)
+	{
+		pthread_mutex_lock(&data->philos[j].mutex);
+		data->philos[j].stop = 1;
+		pthread_mutex_unlock(&data->philos[j].mutex);
+	}
+	time = get_time() - *data->philos[i].start;
 	wait_threads(data);
 	if (i >= 0)
 		printf("%ld %d died\n", time, data->philos[i].id);
@@ -92,19 +91,17 @@ int	monitoring(t_data *data)
 	{
 		i = -1;
 		all_eats = 0;
-		while (++i < data->args->philos)
+		while (++i < data->philos_num)
 		{
 			read_philo(data, i, &last_eat, &eats);
 			time = get_time();
-			if (last_eat && time - last_eat > data->args->time_die)
+			if (last_eat && time - last_eat > data->time_die)
 				return (stop_threads(data, i), 0);
-			else if (!last_eat && time - data->args->start > data->args->time_die)
-				return (stop_threads(data, i), 0);
-			if (data->args->min_eats > 0 && eats >= data->args->min_eats)
+			if (data->min_eats > 0 && eats >= data->min_eats)
 				all_eats++;
 		}
-		if (all_eats == data->args->philos)
+		if (all_eats == data->philos_num)
 			return (stop_threads(data, -1), 0);
-		ft_sleep(3);
+		ft_sleep(10);
 	}
 }

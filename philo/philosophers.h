@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 20:07:30 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/10 20:20:22 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/06/30 19:01:43 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,57 +21,51 @@
 
 typedef struct s_args
 {
-	int				philos;
-	size_t			time_die;
-	size_t			time_eat;
-	size_t			time_sleep;
-	int				min_eats;
-	size_t			start;
-	int				death;
-	pthread_mutex_t	print;
-	pthread_mutex_t	death_mutex;
 }	t_args;
 
 typedef struct s_philo
 {
-	t_args			*args;
 	int				id;
-	int				stopped;
+	size_t			time_die;
+	size_t			time_eat;
+	size_t			time_sleep;
+	int				stop;
 	int				eats;
 	size_t			last_eat;
+	size_t			*start;
 	pthread_t		thread;
 	pthread_mutex_t	mutex;
+	pthread_mutex_t	*print;
+	pthread_mutex_t	*flag;
 	pthread_mutex_t	l_fork;
 	pthread_mutex_t	*r_fork;
 }	t_philo;
 
 typedef struct s_data
 {
-	t_args	*args;
-	t_philo	*philos;
+	t_philo			*philos;
+	int				philos_num;
+	size_t			time_die;
+	size_t			time_eat;
+	size_t			time_sleep;
+	int				min_eats;
+	size_t			start;
+	pthread_mutex_t	print;
+	pthread_mutex_t	flag;
 }	t_data;
 
 // Philo
-int		parse(t_args *args, int argc, char **argv);
+int		parse(t_data *data, int argc, char **argv);
 void	*philo_routine(void *philo);
 int		monitoring(t_data *data);
 
-// Print
-int		print_fork(t_philo *philo);
-int		print_eat(t_philo *philo);
-int		print_sleep(t_philo *philo);
-int		print_think(t_philo *philo);
-void	print_died(t_philo *philo);
-
 // Print utils
-void	putchar_fd(char c, int fd);
 void	print(char *str, int fd);
 int		print_action(t_philo *philo, char *str);
 
 // Utils
 void	ft_sleep(size_t mili);
 size_t	get_time(void);
-int		lock_mutex(pthread_mutex_t *mutex, t_args *args);
 size_t	ft_strlen(char *str);
 
 #endif
