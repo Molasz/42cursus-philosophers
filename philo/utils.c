@@ -3,43 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: molasz-a <molasz-a@student.42barcel>       +#+  +:+       +#+        */
+/*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/29 11:25:40 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/29 21:23:30 by molasz-a         ###   ########.fr       */
+/*   Created: 2024/07/01 20:08:26 by molasz-a          #+#    #+#             */
+/*   Updated: 2024/07/01 21:47:51 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	ft_sleep(size_t mili)
+void	ft_usleep(long int time_in_ms)
 {
-	size_t	start;
-	size_t	time;
+	long int	start_time;
 
-	start = get_time();
-	while (1)
-	{
-		time = get_time();
-		if (time - start >= mili)
-			break ;
-	}
+	start_time = 0;
+	start_time = get_timestamp();
+	while ((get_timestamp() - start_time) < time_in_ms)
+		usleep(100);
 }
 
-size_t	get_time(void)
+void	write_state(char *str, t_philo *philo)
 {
-	struct timeval	time;
+	long	time;
 
-	gettimeofday(&time, NULL);
-	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+	time = get_timestamp() - philo->params->start_time;
+	pthread_mutex_lock(&philo->params->print);
+	if (!is_dead(philo))
+		printf("%ld %d %s\n", time, philo->id + 1, str);
+	pthread_mutex_unlock(&(philo->params->print));
 }
 
-size_t	ft_strlen(char *str)
+long	get_timestamp(void)
 {
-	int	i;
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+}
+
+int	ft_atoi(char *str)
+{
+	size_t	i;
+	size_t	count;
 
 	i = 0;
-	while (str[i])
+	count = 0;
+	while (str[i] == '0')
 		i++;
-	return (i);
+	while (str[i] && str[i] >= '0' && str[i] <= '9')
+	{
+		count *= 10;
+		count += str[i] - '0';
+		i++;
+	}
+	return (count);
 }
+

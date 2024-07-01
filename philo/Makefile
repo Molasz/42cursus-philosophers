@@ -6,15 +6,15 @@
 #    By: molasz-a <molasz-a@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/27 17:13:53 by molasz-a          #+#    #+#              #
-#    Updated: 2024/06/29 22:20:09 by molasz-a         ###   ########.fr        #
+#    Updated: 2024/07/01 22:01:11 by molasz-a         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS	= philosophers.c \
-			parse.c \
-			routine.c \
-			monitoring.c \
-			print_utils.c \
+			death.c \
+			forks.c \
+			init.c \
+			threads.c \
 			utils.c
 
 OBJS 	= $(addprefix obj/, $(SRCS:.c=.o))

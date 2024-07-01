@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/28 20:07:30 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/06/30 19:01:43 by molasz-a         ###   ########.fr       */
+/*   Created: 2024/07/01 20:07:54 by molasz-a          #+#    #+#             */
+/*   Updated: 2024/07/01 21:44:43 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,53 +19,71 @@
 # include <pthread.h>
 # include <sys/time.h>
 
-typedef struct s_args
+typedef struct s_params
 {
-}	t_args;
+	int				num;
+	int				time_die;
+	int				time_eat;
+	int				time_sleep;
+	int				max_meals;
+	long			start_time;
+	pthread_mutex_t	print;
+	int				death;
+	pthread_mutex_t	mutex_death;
+	pthread_t		monitoring_thread;
+}	t_params;
+
+typedef struct s_fork
+{
+	int				used;
+	pthread_mutex_t	lock;
+}	t_fork;
 
 typedef struct s_philo
 {
-	int				id;
-	size_t			time_die;
-	size_t			time_eat;
-	size_t			time_sleep;
-	int				stop;
-	int				eats;
-	size_t			last_eat;
-	size_t			*start;
 	pthread_t		thread;
+	int				id;
+	long			last_meal;
+	int				meal_count;
 	pthread_mutex_t	mutex;
-	pthread_mutex_t	*print;
-	pthread_mutex_t	*flag;
-	pthread_mutex_t	l_fork;
-	pthread_mutex_t	*r_fork;
+	t_fork			*r_fork;
+	int				r_taken;
+	t_fork			*l_fork;
+	int				l_taken;
+	t_params		*params;
 }	t_philo;
 
-typedef struct s_data
+typedef struct data
 {
-	t_philo			*philos;
-	int				philos_num;
-	size_t			time_die;
-	size_t			time_eat;
-	size_t			time_sleep;
-	int				min_eats;
-	size_t			start;
-	pthread_mutex_t	print;
-	pthread_mutex_t	flag;
+	t_params	*params;
+	t_philo		*philos;
+	t_fork		*forks;
 }	t_data;
 
-// Philo
-int		parse(t_data *data, int argc, char **argv);
-void	*philo_routine(void *philo);
-int		monitoring(t_data *data);
+// init.c
+int		init_params(t_params *params, int argc, char **argv);
+int		create_philos(t_data *data);
 
-// Print utils
-void	print(char *str, int fd);
-int		print_action(t_philo *philo, char *str);
+// threads.c
+int		create_threads(t_data *data);
+int		wait_threads(t_data *data);
 
-// Utils
-void	ft_sleep(size_t mili);
-size_t	get_time(void);
-size_t	ft_strlen(char *str);
+// death.c
+int		is_dead(t_philo *philo);
+void	*check_philos_death(void *arg);
+int		stop_threads(t_philo *philo);
+
+// forks.c
+void	take_fork(t_philo *philo, int leftFork);
+void	release_fork(t_philo *philo, int leftFork);
+void	release_forks_and_sleep(t_philo *philo);
+
+
+
+// utils.c
+void	ft_usleep(long int time_in_ms);
+void	write_state(char *str, t_philo *philo);
+long	get_timestamp(void);
+int		ft_atoi(char *str);
 
 #endif
