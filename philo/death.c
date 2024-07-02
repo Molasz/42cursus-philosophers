@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 20:05:47 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/07/01 21:53:35 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:19:29 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ static int	check_philo_death(t_philo *philo, long time)
 	{
 		pthread_mutex_lock(&philo->params->print);
 		stop_threads(philo);
-		printf("%ld %d died\n", time, philo->id + 1);
+		if (!(philo->params->max_meals > 0 && philo->meal_count >= philo->params->max_meals))
+			printf("%ld %d died\n", time, philo->id + 1);
 		pthread_mutex_unlock(&philo->params->print);
 		death = 1;
 	}
