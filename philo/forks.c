@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 20:06:25 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/07/01 21:57:31 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:03:01 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	release_fork(t_philo *philo, int leftFork)
 {
 	t_fork	*fork;
 	int		*taken;
-
 
 	taken = &philo->r_taken;
 	fork = philo->r_fork;

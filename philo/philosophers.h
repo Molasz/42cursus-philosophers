@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 20:07:54 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/07/01 21:44:43 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:02:50 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ int		stop_threads(t_philo *philo);
 void	take_fork(t_philo *philo, int leftFork);
 void	release_fork(t_philo *philo, int leftFork);
 void	release_forks_and_sleep(t_philo *philo);
-
-
 
 // utils.c
 void	ft_usleep(long int time_in_ms);

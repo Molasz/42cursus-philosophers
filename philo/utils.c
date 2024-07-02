@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 20:08:26 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/07/01 21:47:51 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:02:24 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,3 @@ int	ft_atoi(char *str)
 	}
 	return (count);
 }
-

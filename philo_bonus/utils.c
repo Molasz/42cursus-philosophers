@@ -6,13 +6,13 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:07:23 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/07/02 19:01:21 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:04:13 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-int		ft_strlen(char *s)
+int	ft_strlen(char *s)
 {
 	int	i;
 

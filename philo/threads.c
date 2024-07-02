@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 20:08:04 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/07/01 22:00:59 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:03:35 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ int	create_threads(t_data *data)
 	while (i < data->params->num)
 	{
 		if (pthread_create(&data->philos[i].thread, NULL, philo_routine,
-			data->philos + i))
+				data->philos + i))
 			return (0);
 		i++;
 	}
 	if (pthread_create(&(data->params->monitoring_thread), NULL,
-		check_philos_death, data->philos))
+			check_philos_death, data->philos))
 		return (0);
 	return (1);
 }
@@ -76,4 +76,3 @@ int	wait_threads(t_data *data)
 	pthread_join(data->params->monitoring_thread, NULL);
 	return (return_code);
 }
-
