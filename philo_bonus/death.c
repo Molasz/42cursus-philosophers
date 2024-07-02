@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:06:13 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/07/02 18:58:25 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:26:05 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,16 @@ void	*check_death(void *arg)
 	while (1)
 	{
 		time = get_timestamp() - philo->params->start_time;
+		sem_wait(philo->semaphore);
 		if (time - philo->last_meal > philo->params->time_die)
 		{
+			sem_post(philo->semaphore);
 			sem_wait(philo->params->print);
 			printf("%d %d died\n", time, philo->id + 1);
 			sem_post(philo->params->finish);
 		}
+		else
+			sem_post(philo->semaphore);
 		ft_usleep(1);
 	}
 	return (NULL);
