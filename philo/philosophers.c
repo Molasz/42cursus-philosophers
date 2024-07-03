@@ -28,7 +28,6 @@ int	main(int argc, char **argv)
 	data.params = &params;
 	if (!init_params(&params, argc, argv))
 		return (1);
-	printf("%d %d %d\n", params.time_die, params.time_eat, params.time_sleep);
 	if (!create_philos(&data))
 		return (1);
 	if (!create_threads(&data))

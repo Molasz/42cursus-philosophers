@@ -12,14 +12,34 @@
 
 #include "philosophers.h"
 
+static int	check_chars(char **argv)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (argv[++i])
+	{
+		j = -1;
+		while (argv[i][++j])
+		{
+			if (argv[i][j] < '0' || argv[i][j] > '9')
+				return (1);
+		}
+	}
+	return (0);
+}
+
 int	init_params(t_params *params, int argc, char **argv)
 {
 	if (argc < 5)
 	{
-		printf("Usage : ./philo number_philos time_die ");
+		printf("./philo number_philos time_die ");
 		printf("time_eat time_sleep [number_eat]\n");
 		return (0);
 	}
+	if (check_chars(argv))
+		return (printf("Only numeric chars allowed\n"), 0);
 	params->num = ft_atoi(argv[1]);
 	params->time_die = ft_atoi(argv[2]);
 	params->time_eat = ft_atoi(argv[3]);
@@ -36,8 +56,7 @@ int	init_params(t_params *params, int argc, char **argv)
 		|| params->time_sleep < 0)
 		return (0);
 	pthread_mutex_init(&params->print, NULL);
-	pthread_mutex_init(&params->mutex_death, NULL);
-	return (1);
+	return (pthread_mutex_init(&params->mutex_death, NULL), 1);
 }
 
 static void	init_philo(t_data *data, int i)

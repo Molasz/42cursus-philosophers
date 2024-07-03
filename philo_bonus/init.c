@@ -46,25 +46,45 @@ int	create_philos(t_data *data)
 void	init_sem(t_params *params)
 {
 	sem_unlink("/sem_forks");
-	sem_unlink("/sem_console");
-	sem_unlink("/finished");
+	sem_unlink("/sem_print");
+	sem_unlink("/sem_finish");
 	params->forks = sem_open("/sem_forks", O_CREAT, 0644, params->num);
-	params->print = sem_open("/sem_console", O_CREAT, 0644, 1);
-	params->finish = sem_open("/finished", O_CREAT, 0644, 1);
+	params->print = sem_open("/sem_print", O_CREAT, 0644, 1);
+	params->finish = sem_open("/sem_finish", O_CREAT, 0644, 1);
 	sem_unlink("/sem_forks");
-	sem_unlink("/sem_console");
-	sem_unlink("/finished");
+	sem_unlink("/sem_print");
+	sem_unlink("/sem_finish");
 	sem_wait(params->finish);
+}
+
+static int	check_chars(char **argv)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (argv[++i])
+	{
+		j = -1;
+		while (argv[i][++j])
+		{
+			if (argv[i][j] < '0' || argv[i][j] > '9')
+				return (1);
+		}
+	}
+	return (0);
 }
 
 int	init_params(t_params *params, int argc, char **argv)
 {
 	if (argc < 5)
 	{
-		printf("Usage : ./philo number_philos time_die ");
+		printf("./philo number_philos time_die ");
 		printf("time_eat time_sleep [number_eat]\n");
 		return (0);
 	}
+	if (check_chars(argv))
+		return (printf("Only numeric chars allowed\n"), 0);
 	params->num = ft_atoi(argv[1]);
 	params->time_die = ft_atoi(argv[2]);
 	params->time_eat = ft_atoi(argv[3]);
