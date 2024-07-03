@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:07:12 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/07/02 18:59:14 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:16:30 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ int	philo_life(t_philo *philo)
 		take_fork(philo);
 		take_fork(philo);
 		write_state("is eating", philo);
-		ft_usleep(philo->params->time_eat);
-		philo->meal_count++;
 		sem_wait(philo->semaphore);
 		philo->last_meal = get_timestamp() - philo->params->start_time;
 		sem_post(philo->semaphore);
+		ft_usleep(philo->params->time_eat);
+		philo->meal_count++;
 		release_forks_and_sleep(philo);
 		ft_usleep((philo->params->time_die - philo->params->time_eat
 				- philo->params->time_sleep) / 2);

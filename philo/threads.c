@@ -6,7 +6,7 @@
 /*   By: molasz-a <molasz-a@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 20:08:04 by molasz-a          #+#    #+#             */
-/*   Updated: 2024/07/02 19:03:35 by molasz-a         ###   ########.fr       */
+/*   Updated: 2024/07/03 13:14:28 by molasz-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ static void	*philo_routine(void *arg)
 		if (philo->r_taken && philo->l_taken)
 		{
 			write_state("is eating", philo);
-			ft_usleep(philo->params->time_eat);
-			philo->meal_count++;
 			pthread_mutex_lock(&philo->mutex);
 			philo->last_meal = get_timestamp() - philo->params->start_time;
 			pthread_mutex_unlock(&philo->mutex);
+			ft_usleep(philo->params->time_eat);
+			philo->meal_count++;
 			release_forks_and_sleep(philo);
 		}
 	}
